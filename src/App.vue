@@ -2,7 +2,7 @@
   <v-app>
     <v-toolbar app>
       <v-toolbar-title class="headline text-uppercase">
-        <span>Mobster</span>
+        <span>MobsterTime</span>
         <span class="font-weight-light">Time</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>

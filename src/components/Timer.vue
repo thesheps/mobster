@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-layout text-xs-center wrap></v-layout>
+    <v-layout text-xs-center wrap>Mobsters</v-layout>
   </v-container>
 </template>
 

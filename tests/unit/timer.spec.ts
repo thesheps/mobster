@@ -3,10 +3,12 @@ import Timer from "@/components/Timer.vue";
 
 describe("Timer.vue", () => {
   it("renders props.msg when passed", () => {
-    const msg = "new message";
+    const msg = "Mobsters";
     const wrapper = shallowMount(Timer, {
-      propsData: { msg }
+      propsData: { msg },
+      stubs: ["v-container", "v-layout"]
     });
+
     expect(wrapper.text()).toMatch(msg);
   });
 });
