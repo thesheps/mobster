@@ -16,4 +16,6 @@ action "Test" {
 
 action "Publish" {
   needs = "Test"
+  uses = "borales/actions-yarn@master"
+  args = "deploy"
 }
