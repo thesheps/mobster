@@ -1,17 +1,23 @@
 workflow "Build, Test, and Publish" {
-  on = "push"
   resolves = ["Publish"]
+  on = "push"
 }
 
-action "Build" {
+action "Install" {
   uses = "borales/actions-yarn@master"
-  args = "build"
+  args = "install"
 }
 
 action "Test" {
-  needs = "Build"
+  needs = "Install"
   uses = "borales/actions-yarn@master"
   args = "test:unit"
+}
+
+action "Build" {
+  needs = "Test"
+  uses = "borales/actions-yarn@master"
+  args = "build"
 }
 
 action "Publish" {
