@@ -1,4 +1,3 @@
-// vue.config.js
 module.exports = {
-  publicPath: mobster
+  publicPath: process.env.NODE_ENV == "production" ? "mobster" : ""
 };
