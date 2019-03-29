@@ -1,16 +1,19 @@
-workflow "Build and deploy on push" {
+workflow "Build, Test, and Publish" {
   on = "push"
-  resolves = ["NPM Build"]
+  resolves = ["Publish"]
 }
 
-action "NPM Build" {
-  uses = "actions/npm@59b64a598378f31e49cb76f27d6f3312b582f680"
+action "Build" {
+  uses = "borales/actions-yarn@master"
+  args = "build"
 }
 
-action "Deploy to GitHub Pages" {
-  uses = "maxheld83/ghpages@v0.2.1"
-  env = {
-    BUILD_DIR = "public/"
-  }
-  secrets = ["GH_PAT"]
+action "Test" {
+  needs = "Build"
+  uses = "borales/actions-yarn@master"
+  args = "test:unit"
+}
+
+action "Publish" {
+  needs = "Test"
 }
