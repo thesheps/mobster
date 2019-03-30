@@ -24,4 +24,5 @@ action "Publish" {
   needs = "Build"
   uses = "borales/actions-yarn@master"
   args = "deploy"
+  secrets = ["GITHUB_TOKEN"]
 }
