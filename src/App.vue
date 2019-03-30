@@ -17,20 +17,13 @@
       </v-btn>
     </v-toolbar>
 
-    <v-content>
-      <Timer/>
-    </v-content>
+    <v-content></v-content>
   </v-app>
 </template>
 
 <script>
-import Timer from "./components/Timer";
-
 export default {
-  name: "App",
-  components: {
-    Timer
-  },
+  name: "Mobster-Time",
   data() {
     return {
       //
