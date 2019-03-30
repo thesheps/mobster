@@ -9,9 +9,15 @@
     <v-list v-if="mobsters.length > 0">
       <draggable v-model="mobsters" handle=".dragger">
         <transition-group type="transition" name="flip-list">
-          <v-list-tile v-for="mobster in mobsters" :key="mobster.id" avatar class="dragger" @click>
-            <v-list-tile-action>
-              <v-icon color="mobster.isDriving ? pink : grey">star</v-icon>
+          <v-list-tile
+            v-for="(mobster, index) in mobsters"
+            :key="mobster.id"
+            avatar
+            class="dragger"
+            @click
+          >
+            <v-list-tile-action @click="setDriver(index)">
+              <v-icon :color="mobster.isDriving ? 'pink' : 'grey'">star</v-icon>
             </v-list-tile-action>
 
             <v-list-tile-avatar>
@@ -49,8 +55,8 @@ export default {
   }),
 
   methods: {
-    async addMobster() {
-      let url = await avatarService.getAvatar();
+    addMobster() {
+      let url = avatarService.getAvatar();
 
       this.mobsters.push({
         id: this.mobsters.length,
@@ -59,6 +65,17 @@ export default {
       });
 
       this.mobsterName = "";
+    },
+
+    setDriver(index) {
+      this.mobsters.forEach((m, i) => {
+        m.isDriving = false;
+        this.$set(this.mobsters, i, m);
+      });
+
+      let mobster = this.mobsters[index];
+      mobster.isDriving = !mobster.isDriving;
+      this.$set(this.mobsters, index, mobster);
     }
   }
 };
