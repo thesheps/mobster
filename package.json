@@ -76,7 +76,7 @@
       "^.+\\.(js|jsx)?$": "babel-jest"
     },
     "transformIgnorePatterns": [
-      "/node_modules/"
+      "/node_modules/(?!vuetify/.*)"
     ],
     "moduleNameMapper": {
       "^@/(.*)$": "<rootDir>/src/$1"
