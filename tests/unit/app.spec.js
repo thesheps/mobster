@@ -1,12 +1,14 @@
 import { createLocalVue, shallowMount } from "@vue/test-utils";
 import App from "../../src/App.vue";
 import Vuetify from "vuetify";
+import VueRouter from "vue-router";
 
 describe("App.vue", () => {
   const localVue = createLocalVue();
   localVue.use(Vuetify);
+  localVue.use(VueRouter);
 
-  it("renders props.msg when passed", () => {
+  it("renders msg correctly", () => {
     const msg = "Mobster Time";
     const wrapper = shallowMount(App, {
       localVue
