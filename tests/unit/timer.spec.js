@@ -1,7 +1,7 @@
 import { shallowMount } from "@vue/test-utils";
 import localVueFactory from "./local-vue-factory";
 import Timer from "../../src/components/Timer.vue";
-import Vue from "vue";
+import eventBus from "../../src/utils/event-bus";
 
 describe("Timer.vue", () => {
   const localVue = localVueFactory.create();
@@ -65,6 +65,9 @@ describe("Timer.vue", () => {
   });
 
   it("emits a rotate mobster event upon timer completion", () => {
+    let eventEmitted = false;
+    eventBus.$on("rotateMobster", () => (eventEmitted = true));
+
     const wrapper = shallowMount(Timer, {
       localVue,
       propsData: { cycleTime: "00:08:00" }
@@ -74,6 +77,6 @@ describe("Timer.vue", () => {
     wrapper.vm.totalSeconds = 0;
     wrapper.vm.rotateMobster();
 
-    expect(wrapper.emitted().rotateMobster).toBeTruthy();
+    expect(eventEmitted).toBeTruthy();
   });
 });

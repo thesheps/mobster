@@ -26,6 +26,7 @@
 <script>
 import moment from "moment";
 import { Stopwatch } from "stopwatch";
+import eventBus from "../utils/event-bus";
 
 export default {
   props: ["cycleTime"],
@@ -98,7 +99,7 @@ export default {
 
     rotateMobster() {
       this.toggleTimer(false);
-      this.$emit("rotateMobster");
+      eventBus.$emit("rotateMobster");
     },
 
     handleResize() {
