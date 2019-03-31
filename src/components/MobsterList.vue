@@ -8,7 +8,7 @@
 
     <v-list v-if="mobsters.length > 0">
       <draggable v-model="mobsters" handle=".dragger">
-        <transition-group type="transition" name="flip-list">
+        <transition-group type="transition" name="flip-fade">
           <v-list-tile
             v-for="(mobster, index) in mobsters"
             :key="mobster.id"
@@ -21,7 +21,7 @@
             </v-list-tile-action>
 
             <v-list-tile-avatar @click="toggleAvatar(index)">
-              <transition name="fade" mode="out-in">
+              <transition name="flip-fade" mode="out-in">
                 <img :key="mobster.avatar" :src="mobster.avatar">
               </transition>
             </v-list-tile-avatar>
@@ -101,17 +101,17 @@ export default {
 </script>
 
 <style>
-.flip-list-move {
+.flip-fade-move {
   transition: transform 0.5s;
 }
 
-.fade-enter-active,
-.fade-leave-active {
+.flip-fade-enter-active,
+.flip-fade-leave-active {
   transition: opacity 0.2s;
 }
 
-.fade-enter,
-.fade-leave-to {
+.flip-fade-enter,
+.flip-fade-leave-to {
   opacity: 0;
 }
 
