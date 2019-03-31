@@ -20,8 +20,10 @@
               <v-icon :color="mobster.isDriving ? 'pink' : 'grey'">star</v-icon>
             </v-list-tile-action>
 
-            <v-list-tile-avatar>
-              <img :src="mobster.avatar">
+            <v-list-tile-avatar @click="toggleAvatar(index)">
+              <transition name="fade" mode="out-in">
+                <img :key="mobster.avatar" :src="mobster.avatar">
+              </transition>
             </v-list-tile-avatar>
 
             <v-list-tile-content>
@@ -61,7 +63,8 @@ export default {
       this.mobsters.push({
         id: this.mobsters.length,
         name: this.mobsterName,
-        avatar: url
+        avatar: url,
+        isDriving: false
       });
 
       this.mobsterName = "";
@@ -76,6 +79,12 @@ export default {
       let mobster = this.mobsters[index];
       mobster.isDriving = !mobster.isDriving;
       this.$set(this.mobsters, index, mobster);
+    },
+
+    toggleAvatar(index) {
+      let mobster = this.mobsters[index];
+      mobster.avatar = avatarService.getAvatar();
+      this.$set(this.mobsters, index, mobster);
     }
   }
 };
@@ -84,6 +93,16 @@ export default {
 <style>
 .flip-list-move {
   transition: transform 0.5s;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.2s;
+}
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
 }
 
 .dragger {

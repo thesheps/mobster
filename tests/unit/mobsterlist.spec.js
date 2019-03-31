@@ -30,5 +30,32 @@ describe("MobsterList.vue", () => {
     expect(wrapper.vm.mobsters[0].avatar).toContain("img/avatars/");
   });
 
-  it("allows a mobster to be selected as a driver", () => {});
+  it("allows a mobster to be selected as a driver", () => {
+    const wrapper = shallowMount(MobsterList, {
+      localVue
+    });
+
+    expect(wrapper.vm.mobsters.length).toBe(0);
+    wrapper.vm.mobsterName = "Dave";
+    wrapper.vm.addMobster();
+
+    expect(wrapper.vm.mobsters[0].isDriving).toBe(false);
+    wrapper.vm.setDriver(0);
+    expect(wrapper.vm.mobsters[0].isDriving).toBe(true);
+  });
+
+  it("allows a mobster's avatar to be toggled", () => {
+    const wrapper = shallowMount(MobsterList, {
+      localVue
+    });
+
+    expect(wrapper.vm.mobsters.length).toBe(0);
+    wrapper.vm.mobsterName = "Dave";
+    wrapper.vm.addMobster();
+
+    let avatar = wrapper.vm.mobsters[0].avatar;
+    wrapper.vm.toggleAvatar(0);
+
+    expect(avatar).not.toBe(wrapper.vm.mobsters[0].avatar);
+  });
 });
