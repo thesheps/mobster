@@ -59,5 +59,16 @@ describe("Timer.vue", () => {
     });
 
     expect(wrapper.vm.secondsLeft).toBe(480);
+    expect(wrapper.vm.totalSeconds).toBe(480);
+  });
+
+  it("sets the ratio of completion correctly", () => {
+    const wrapper = shallowMount(Timer, {
+      localVue,
+      propsData: { cycleTime: "00:08:00" }
+    });
+
+    wrapper.vm.secondsLeft = 200;
+    expect(wrapper.vm.ratio).toBe(200 / 480);
   });
 });

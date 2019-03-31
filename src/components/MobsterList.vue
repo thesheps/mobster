@@ -22,7 +22,7 @@
           @click
         >
           <v-list-tile-action @click="setDriver(index)">
-            <v-icon :color="mobster.isDriving ? 'pink' : 'grey'">star</v-icon>
+            <v-icon :color="mobster.isDriving ? 'pink' : 'grey'">drive_eta</v-icon>
           </v-list-tile-action>
 
           <v-list-tile-avatar @click="toggleAvatar(index)">

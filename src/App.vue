@@ -1,11 +1,15 @@
 <template>
-  <v-app>
+  <v-app :dark="dark">
     <v-toolbar app>
       <v-toolbar-title class="headline text-uppercase">
         <span>Mobster:</span>
         <span class="font-weight-light">The collaboration timer</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
+
+      <v-btn flat icon @click="dark = !dark">
+        <v-icon>invert_colors</v-icon>
+      </v-btn>
 
       <v-btn
         flat
@@ -28,7 +32,7 @@ export default {
   name: "Mobster-Time",
   data() {
     return {
-      //
+      dark: true
     };
   }
 };

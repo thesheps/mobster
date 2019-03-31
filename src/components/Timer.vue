@@ -31,18 +31,24 @@ export default {
   props: ["cycleTime"],
 
   data: () => ({
-    ratio: 0,
     size: 450,
     width: 125,
     isRunning: false,
     stopwatch: {},
     buttonLabel: "Start",
-    secondsLeft: 0
+    secondsLeft: 0,
+    totalSeconds: 0
   }),
 
   watch: {
     isRunning: function(newValue) {
       this.buttonLabel = newValue ? "Pause" : "Start";
+    }
+  },
+
+  computed: {
+    ratio() {
+      return (this.secondsLeft / this.totalSeconds) * 100;
     }
   },
 
@@ -60,6 +66,7 @@ export default {
   created() {
     window.addEventListener("resize", this.handleResize);
     this.secondsLeft = new moment.duration(this.cycleTime).asSeconds();
+    this.totalSeconds = this.secondsLeft;
     this.handleResize();
   },
 
@@ -88,7 +95,7 @@ export default {
       let maxHeight = window.innerHeight - 200;
 
       this.size = maxHeight < maxWidth ? maxHeight : maxWidth;
-      this.width = (50 / 450) * this.size;
+      this.width = (30 / 450) * this.size;
     }
   }
 };
