@@ -3,13 +3,13 @@
     <v-layout row>
       <v-flex class="mr-4">
         <v-list subheader>
-          <Configuration></Configuration>
+          <Configuration v-model="configuration"></Configuration>
           <MobsterList></MobsterList>
         </v-list>
       </v-flex>
 
       <v-flex shrink>
-        <Timer cycleTime="00:08:00"></Timer>
+        <Timer :cycleTime="configuration.cycleTime"></Timer>
       </v-flex>
     </v-layout>
   </v-container>
@@ -25,6 +25,12 @@ export default {
     Configuration,
     Timer,
     MobsterList
+  },
+
+  data() {
+    return {
+      configuration: {}
+    };
   }
 };
 </script>

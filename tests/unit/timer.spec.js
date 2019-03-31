@@ -34,7 +34,7 @@ describe("Timer.vue", () => {
     expect(pause.text()).toBe("Start");
 
     wrapper.vm.timer = jest.fn();
-    wrapper.vm.toggleTimer();
+    wrapper.vm.toggleTimer(true);
     expect(pause.text()).toBe("Pause");
   });
 
@@ -47,19 +47,9 @@ describe("Timer.vue", () => {
     expect(pause.is("v-btn-stub")).toBe(true);
     expect(pause.text()).toBe("Start");
 
-    wrapper.vm.toggleTimer();
-    wrapper.vm.toggleTimer();
+    wrapper.vm.toggleTimer(true);
+    wrapper.vm.toggleTimer(false);
     expect(pause.text()).toBe("Start");
-  });
-
-  it("uses the provided cycleTime property to configure the timer", () => {
-    const wrapper = shallowMount(Timer, {
-      localVue,
-      propsData: { cycleTime: "00:08:00" }
-    });
-
-    expect(wrapper.vm.secondsLeft).toBe(480);
-    expect(wrapper.vm.totalSeconds).toBe(480);
   });
 
   it("sets the ratio of completion correctly", () => {
@@ -69,6 +59,7 @@ describe("Timer.vue", () => {
     });
 
     wrapper.vm.secondsLeft = 200;
-    expect(wrapper.vm.ratio).toBe(200 / 480);
+    wrapper.vm.totalSeconds = 480;
+    expect(wrapper.vm.ratio).toBe((200 / 480) * 100);
   });
 });

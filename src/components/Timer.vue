@@ -16,7 +16,7 @@
       <v-btn
         block
         large
-        @click="toggleTimer"
+        @click="toggleTimer(!isRunning)"
         :color="isRunning ? 'error' : 'success'"
       >{{ buttonLabel }}</v-btn>
     </v-layout>
@@ -34,14 +34,20 @@ export default {
     size: 450,
     width: 125,
     isRunning: false,
-    stopwatch: {},
+    stopwatch: { stop() {} },
     buttonLabel: "Start",
     secondsLeft: 0,
     totalSeconds: 0
   }),
 
   watch: {
-    isRunning: function(newValue) {
+    cycleTime(newValue) {
+      this.secondsLeft = new moment.duration(newValue).asSeconds();
+      this.totalSeconds = this.secondsLeft;
+      this.toggleTimer(false);
+    },
+
+    isRunning(newValue) {
       this.buttonLabel = newValue ? "Pause" : "Start";
     }
   },
@@ -65,14 +71,12 @@ export default {
 
   created() {
     window.addEventListener("resize", this.handleResize);
-    this.secondsLeft = new moment.duration(this.cycleTime).asSeconds();
-    this.totalSeconds = this.secondsLeft;
     this.handleResize();
   },
 
   methods: {
-    toggleTimer() {
-      this.isRunning = !this.isRunning;
+    toggleTimer(isRunning) {
+      this.isRunning = isRunning;
 
       if (this.isRunning) {
         let self = this;
@@ -83,10 +87,12 @@ export default {
         });
 
         this.stopwatch.on("end", function() {
-          //when the time ends
+          self.$emit("WEEEE");
         });
 
         this.stopwatch.start();
+      } else {
+        this.stopwatch.stop();
       }
     },
 

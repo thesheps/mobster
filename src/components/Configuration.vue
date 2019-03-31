@@ -9,6 +9,7 @@
         v-model="cycleTime"
         mask="##:##:##"
         placeholder="00:08:00"
+        return-masked-value
       ></v-text-field>
     </v-list-tile>
   </v-list>
@@ -20,6 +21,16 @@ export default {
     return {
       cycleTime: "00:08:00"
     };
+  },
+
+  watch: {
+    cycleTime(newValue) {
+      this.$emit("input", { cycleTime: newValue });
+    }
+  },
+
+  created() {
+    this.$emit("input", { cycleTime: this.cycleTime });
   }
 };
 </script>
