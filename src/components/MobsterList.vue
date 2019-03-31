@@ -114,10 +114,12 @@ export default {
       });
 
       this.mobsterName = "";
+      this.$emit("input", this.mobsters);
     },
 
     removeMobster(index) {
       this.$delete(this.mobsters, index);
+      this.$emit("input", this.mobsters);
     },
 
     setDriver(index) {

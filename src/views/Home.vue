@@ -4,12 +4,12 @@
       <v-flex class="mr-4">
         <v-list subheader>
           <Configuration v-model="configuration"></Configuration>
-          <MobsterList></MobsterList>
+          <MobsterList v-model="mobsters"></MobsterList>
         </v-list>
       </v-flex>
 
       <v-flex shrink>
-        <Timer :cycleTime="configuration.cycleTime"></Timer>
+        <Timer :disabled="timerDisabled" :cycleTime="configuration.cycleTime"></Timer>
       </v-flex>
     </v-layout>
   </v-container>
@@ -29,8 +29,16 @@ export default {
 
   data() {
     return {
-      configuration: {}
+      configuration: {},
+      mobsters: [],
+      timerDisabled: true
     };
+  },
+
+  watch: {
+    mobsters() {
+      this.timerDisabled = this.mobsters.length <= 1 ? true : false;
+    }
   }
 };
 </script>

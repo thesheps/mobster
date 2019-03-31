@@ -1,6 +1,6 @@
 <template>
   <v-responsive>
-    <v-layout row pb-2>
+    <v-layout row pb-2 v-on:keyup.enter="thing">
       <v-progress-circular
         v-if="$vuetify.breakpoint.smAndUp"
         :size="size"
@@ -18,6 +18,7 @@
         large
         @click="toggleTimer(!isRunning)"
         :color="isRunning ? 'error' : 'success'"
+        :disabled="disabled"
       >{{ buttonLabel }}</v-btn>
     </v-layout>
   </v-responsive>
@@ -29,7 +30,7 @@ import { Stopwatch } from "stopwatch";
 import eventBus from "../utils/event-bus";
 
 export default {
-  props: ["cycleTime"],
+  props: ["cycleTime", "disabled"],
 
   data: () => ({
     size: 450,
@@ -76,6 +77,10 @@ export default {
   },
 
   methods: {
+    thing() {
+      console.log("FUCK");
+    },
+
     toggleTimer(isRunning) {
       this.isRunning = isRunning;
 
