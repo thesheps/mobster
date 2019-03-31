@@ -14,10 +14,10 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/mobster-time/precache-manifest.074c0a6846b5fa89fc7abb053844b548.js"
+  "/mobster/precache-manifest.41425d0d9bcbd12a9d4252cd389ce3c3.js"
 );
 
-workbox.core.setCacheNameDetails({prefix: "mobster-time"});
+workbox.core.setCacheNameDetails({prefix: "mobster"});
 
 /**
  * The workboxSW.precacheAndRoute() method efficiently caches and responds to
