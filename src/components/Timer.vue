@@ -87,13 +87,18 @@ export default {
         });
 
         this.stopwatch.on("end", function() {
-          self.$emit("WEEEE");
+          self.rotateMobster();
         });
 
         this.stopwatch.start();
       } else {
         this.stopwatch.stop();
       }
+    },
+
+    rotateMobster() {
+      this.toggleTimer(false);
+      this.$emit("rotateMobster");
     },
 
     handleResize() {
