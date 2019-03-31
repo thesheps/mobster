@@ -1,5 +1,5 @@
 module.exports = {
-  ignore: ["/\bcore-js\b/"],
+  ignore: ["/\core-js\/"],
   presets: [
     [
       "@babel/preset-env",
