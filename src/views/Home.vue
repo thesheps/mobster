@@ -6,7 +6,7 @@
       </v-flex>
 
       <v-flex shrink>
-        <Timer></Timer>
+        <Timer cycleTime="00:08:00"></Timer>
       </v-flex>
     </v-layout>
   </v-container>

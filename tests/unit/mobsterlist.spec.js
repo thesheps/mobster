@@ -72,4 +72,16 @@ describe("MobsterList.vue", () => {
     wrapper.vm.removeMobster(0);
     expect(wrapper.vm.mobsters.length).toBe(0);
   });
+
+  it("prevents the user from entering an empty name", () => {
+    const wrapper = shallowMount(MobsterList, {
+      localVue
+    });
+
+    expect(wrapper.vm.mobsters.length).toBe(0);
+    wrapper.vm.mobsterName = "";
+    wrapper.vm.addMobster();
+
+    expect(wrapper.vm.mobsters.length).toBe(0);
+  });
 });

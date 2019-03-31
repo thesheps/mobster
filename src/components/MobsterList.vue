@@ -1,9 +1,12 @@
 <template>
   <v-container>
+    <v-subheader large>Mobbers</v-subheader>
+
     <v-text-field
       v-on:keyup.enter="addMobster"
       v-model="mobsterName"
       placeholder="Add a new Mobster..."
+      autofocus
     ></v-text-field>
 
     <v-list v-if="mobsters.length > 0">
@@ -39,6 +42,11 @@
         </transition-group>
       </draggable>
     </v-list>
+
+    <v-snackbar v-model="showError" top>
+      {{ errorText }}
+      <v-btn color="pink" flat @click="showError = false">Close</v-btn>
+    </v-snackbar>
   </v-container>
 </template>
 
@@ -53,11 +61,19 @@ export default {
 
   data: () => ({
     mobsterName: "",
-    mobsters: []
+    mobsters: [],
+    errorText: "",
+    showError: false
   }),
 
   methods: {
     addMobster() {
+      if (!this.mobsterName) {
+        this.errorText = "Please enter a mobster name!";
+        this.showError = true;
+        return;
+      }
+
       let url = avatarService.getAvatar();
 
       this.mobsters.push({
@@ -107,7 +123,7 @@ export default {
 
 .flip-fade-enter-active,
 .flip-fade-leave-active {
-  transition: opacity 0.3s;
+  transition: opacity 0.2s;
 }
 
 .flip-fade-enter,
