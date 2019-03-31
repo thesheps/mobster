@@ -2,6 +2,7 @@
   <v-container fluid>
     <v-layout row>
       <v-flex grow>
+        <Configuration></Configuration>
         <MobsterList></MobsterList>
       </v-flex>
 
@@ -15,9 +16,11 @@
 <script>
 import Timer from "../components/Timer.vue";
 import MobsterList from "../components/MobsterList.vue";
+import Configuration from "../components/Configuration.vue";
 
 export default {
   components: {
+    Configuration,
     Timer,
     MobsterList
   }
