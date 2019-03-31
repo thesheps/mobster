@@ -4,7 +4,7 @@
       <v-progress-circular
         v-if="$vuetify.breakpoint.smAndUp"
         :size="size"
-        width="125"
+        :width="width"
         :value="ratio"
         rotate="-90"
       >
@@ -33,6 +33,7 @@ export default {
   data: () => ({
     ratio: 0,
     size: 450,
+    width: 125,
     isRunning: false,
     stopwatch: {},
     buttonLabel: "Start",
@@ -87,6 +88,7 @@ export default {
       let maxHeight = window.innerHeight - 200;
 
       this.size = maxHeight < maxWidth ? maxHeight : maxWidth;
+      this.width = (50 / 450) * this.size;
     }
   }
 };

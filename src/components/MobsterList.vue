@@ -1,53 +1,54 @@
 <template>
-  <v-container>
+  <v-list>
     <v-subheader large>Mobbers</v-subheader>
 
-    <v-text-field
-      v-on:keyup.enter="addMobster"
-      v-model="mobsterName"
-      placeholder="Add a new Mobster..."
-      autofocus
-    ></v-text-field>
+    <v-list-tile>
+      <v-text-field
+        v-on:keyup.enter="addMobster"
+        v-model="mobsterName"
+        placeholder="Add a new Mobster..."
+        autofocus
+        label="Mobster name"
+      ></v-text-field>
+    </v-list-tile>
 
-    <v-list v-if="mobsters.length > 0">
-      <draggable v-model="mobsters" handle=".dragger">
-        <transition-group type="transition" name="flip-fade">
-          <v-list-tile
-            v-for="(mobster, index) in mobsters"
-            :key="mobster.id"
-            avatar
-            class="dragger"
-            @click
-          >
-            <v-list-tile-action @click="setDriver(index)">
-              <v-icon :color="mobster.isDriving ? 'pink' : 'grey'">star</v-icon>
-            </v-list-tile-action>
+    <draggable v-model="mobsters" handle=".dragger">
+      <transition-group type="transition" name="flip-fade">
+        <v-list-tile
+          v-for="(mobster, index) in mobsters"
+          :key="mobster.id"
+          avatar
+          class="dragger"
+          @click
+        >
+          <v-list-tile-action @click="setDriver(index)">
+            <v-icon :color="mobster.isDriving ? 'pink' : 'grey'">star</v-icon>
+          </v-list-tile-action>
 
-            <v-list-tile-avatar @click="toggleAvatar(index)">
-              <transition name="flip-fade" mode="out-in">
-                <img :key="mobster.avatar" :src="mobster.avatar">
-              </transition>
-            </v-list-tile-avatar>
+          <v-list-tile-avatar @click="toggleAvatar(index)">
+            <transition name="flip-fade" mode="out-in">
+              <img :key="mobster.avatar" :src="mobster.avatar">
+            </transition>
+          </v-list-tile-avatar>
 
-            <v-list-tile-content>
-              <v-list-tile-title v-text="mobster.name"></v-list-tile-title>
-            </v-list-tile-content>
+          <v-list-tile-content>
+            <v-list-tile-title v-text="mobster.name"></v-list-tile-title>
+          </v-list-tile-content>
 
-            <v-list-tile-action @click="removeMobster(index)">
-              <v-btn icon ripple>
-                <v-icon color="grey lighten-1">delete</v-icon>
-              </v-btn>
-            </v-list-tile-action>
-          </v-list-tile>
-        </transition-group>
-      </draggable>
-    </v-list>
+          <v-list-tile-action @click="removeMobster(index)">
+            <v-btn icon ripple>
+              <v-icon color="grey lighten-1">delete</v-icon>
+            </v-btn>
+          </v-list-tile-action>
+        </v-list-tile>
+      </transition-group>
+    </draggable>
 
     <v-snackbar v-model="showError" top>
       {{ errorText }}
       <v-btn color="pink" flat @click="showError = false">Close</v-btn>
     </v-snackbar>
-  </v-container>
+  </v-list>
 </template>
 
 <script>

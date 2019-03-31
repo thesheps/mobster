@@ -1,9 +1,11 @@
 <template>
   <v-container fluid>
     <v-layout row>
-      <v-flex grow>
-        <Configuration></Configuration>
-        <MobsterList></MobsterList>
+      <v-flex class="mr-4">
+        <v-list subheader>
+          <Configuration></Configuration>
+          <MobsterList></MobsterList>
+        </v-list>
       </v-flex>
 
       <v-flex shrink>
