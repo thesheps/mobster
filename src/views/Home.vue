@@ -1,8 +1,15 @@
 <template>
-  <div>
-    <Timer></Timer>
-    <MobsterList></MobsterList>
-  </div>
+  <v-container fluid>
+    <v-layout row>
+      <v-flex grow>
+        <MobsterList></MobsterList>
+      </v-flex>
+
+      <v-flex shrink>
+        <Timer></Timer>
+      </v-flex>
+    </v-layout>
+  </v-container>
 </template>
 
 <script>
