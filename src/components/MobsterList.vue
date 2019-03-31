@@ -107,7 +107,7 @@ export default {
 
 .flip-fade-enter-active,
 .flip-fade-leave-active {
-  transition: opacity 0.2s;
+  transition: opacity 0.3s;
 }
 
 .flip-fade-enter,
