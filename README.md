@@ -1,4 +1,4 @@
-# mobstertime
+# mobster
 
 ## Project setup
 

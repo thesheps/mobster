@@ -9,7 +9,7 @@ describe("App.vue", () => {
   localVue.use(VueRouter);
 
   it("renders msg correctly", () => {
-    const msg = "Mobster Time";
+    const msg = "mobster";
     const wrapper = shallowMount(App, {
       localVue
     });
