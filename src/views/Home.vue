@@ -36,8 +36,21 @@ export default {
   },
 
   watch: {
+    configuration() {
+      this.setTimerDisabled();
+    },
+
     mobsters() {
-      this.timerDisabled = this.mobsters.length <= 1 ? true : false;
+      this.setTimerDisabled();
+    }
+  },
+
+  methods: {
+    setTimerDisabled() {
+      this.timerDisabled =
+        this.configuration.cycleTime == null ||
+        this.configuration.breakFrequency == null ||
+        this.mobsters.length <= 1;
     }
   }
 };

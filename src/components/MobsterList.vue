@@ -123,6 +123,16 @@ export default {
     },
 
     setDriver(index) {
+      this.$notification.show(
+        "Time to rotate!",
+        {
+          body: `${this.mobsters[this.currentDriver].name}, give the wheel to ${
+            this.mobsters[index].name
+          }!`
+        },
+        {}
+      );
+
       this.currentDriver = index;
     },
 

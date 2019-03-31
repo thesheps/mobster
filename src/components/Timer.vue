@@ -73,6 +73,7 @@ export default {
 
   created() {
     window.addEventListener("resize", this.handleResize);
+    this.$notification.requestPermission();
     this.handleResize();
   },
 
