@@ -1,17 +1,17 @@
 import { shallowMount } from "@vue/test-utils";
 import localVueFactory from "./local-vue-factory";
-import App from "../../src/App.vue";
+import Configuration from "../../src/components/Configuration.vue";
 
-describe("App.vue", () => {
+describe("Configuration.vue", () => {
   const localVue = localVueFactory.create();
 
   it("renders msg correctly", () => {
-    const msg = "Mobster: The collaboration timer";
-    const wrapper = shallowMount(App, {
+    const msg = "Configuration";
+    const wrapper = shallowMount(Configuration, {
       localVue
     });
 
-    const title = wrapper.find(".headline");
+    const title = wrapper.find("v-subheader-stub");
 
     expect(title.text()).toMatch(msg);
   });

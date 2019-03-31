@@ -1,11 +1,9 @@
-import { createLocalVue, shallowMount } from "@vue/test-utils";
+import { shallowMount } from "@vue/test-utils";
+import localVueFactory from "./local-vue-factory";
 import MobsterList from "../../src/components/MobsterList.vue";
-import Vuetify from "vuetify";
-import Vue from "vue";
 
 describe("MobsterList.vue", () => {
-  const localVue = createLocalVue();
-  Vue.use(Vuetify);
+  const localVue = localVueFactory.create();
 
   it("contains a textbox to add a new mobster", () => {
     const wrapper = shallowMount(MobsterList, {

@@ -1,10 +1,11 @@
-import { createLocalVue, shallowMount } from "@vue/test-utils";
+import { shallowMount } from "@vue/test-utils";
+import localVueFactory from "./local-vue-factory";
 import Home from "../../src/views/Home.vue";
 import MobsterList from "../../src/components/MobsterList.vue";
 import Timer from "../../src/components/Timer.vue";
 
 describe("Home.vue", () => {
-  const localVue = createLocalVue();
+  const localVue = localVueFactory.create();
 
   it("contains the mobster list", () => {
     const wrapper = shallowMount(Home, {

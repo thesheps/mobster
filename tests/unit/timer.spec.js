@@ -1,11 +1,9 @@
-import { createLocalVue, shallowMount } from "@vue/test-utils";
+import { shallowMount } from "@vue/test-utils";
+import localVueFactory from "./local-vue-factory";
 import Timer from "../../src/components/Timer.vue";
-import Vuetify from "vuetify";
-import Vue from "vue";
 
 describe("Timer.vue", () => {
-  const localVue = createLocalVue();
-  Vue.use(Vuetify);
+  const localVue = localVueFactory.create();
 
   it("contains the progress component", () => {
     const wrapper = shallowMount(Timer, {
