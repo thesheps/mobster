@@ -30,7 +30,7 @@
               <v-list-tile-title v-text="mobster.name"></v-list-tile-title>
             </v-list-tile-content>
 
-            <v-list-tile-action>
+            <v-list-tile-action @click="removeMobster(index)">
               <v-btn icon ripple>
                 <v-icon color="grey lighten-1">delete</v-icon>
               </v-btn>
@@ -83,8 +83,18 @@ export default {
 
     toggleAvatar(index) {
       let mobster = this.mobsters[index];
-      mobster.avatar = avatarService.getAvatar();
+      let avatar = avatarService.getAvatar();
+      while (avatar === mobster.avatar) {
+        avatar = avatarService.getAvatar();
+      }
+
+      mobster.avatar = avatar;
+
       this.$set(this.mobsters, index, mobster);
+    },
+
+    removeMobster(index) {
+      this.$delete(this.mobsters, index);
     }
   }
 };

@@ -58,4 +58,18 @@ describe("MobsterList.vue", () => {
 
     expect(avatar).not.toBe(wrapper.vm.mobsters[0].avatar);
   });
+
+  it("allows a mobster to be deleted from the list", () => {
+    const wrapper = shallowMount(MobsterList, {
+      localVue
+    });
+
+    expect(wrapper.vm.mobsters.length).toBe(0);
+    wrapper.vm.mobsterName = "Dave";
+    wrapper.vm.addMobster();
+
+    expect(wrapper.vm.mobsters.length).toBe(1);
+    wrapper.vm.removeMobster(0);
+    expect(wrapper.vm.mobsters.length).toBe(0);
+  });
 });
