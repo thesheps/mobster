@@ -1,11 +1,11 @@
 self.__precacheManifest = [
   {
-    "revision": "c8836474d012a2a87a57",
+    "revision": "b3d53b3f827fd77ad3af",
     "url": "/mobster/css/app.07d970b8.css"
   },
   {
-    "revision": "c8836474d012a2a87a57",
-    "url": "/mobster/js/app.7e7a7722.js"
+    "revision": "b3d53b3f827fd77ad3af",
+    "url": "/mobster/js/app.8f1c6479.js"
   },
   {
     "revision": "06710155cfb66a04fefe",
@@ -16,7 +16,7 @@ self.__precacheManifest = [
     "url": "/mobster/js/chunk-vendors.de1e8d84.js"
   },
   {
-    "revision": "366f348690c6e7a2febbf367bc56f2ee",
+    "revision": "66062c32a1f64163d414a11a151bbf82",
     "url": "/mobster/index.html"
   },
   {
