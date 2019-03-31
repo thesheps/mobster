@@ -1,6 +1,7 @@
 import { shallowMount } from "@vue/test-utils";
 import localVueFactory from "./local-vue-factory";
 import MobsterList from "../../src/components/MobsterList.vue";
+import eventBus from "../../src/utils/event-bus";
 
 describe("MobsterList.vue", () => {
   const localVue = localVueFactory.create();
@@ -36,10 +37,14 @@ describe("MobsterList.vue", () => {
     expect(wrapper.vm.mobsters.length).toBe(0);
     wrapper.vm.mobsterName = "Dave";
     wrapper.vm.addMobster();
+    wrapper.vm.mobsterName = "Suzie";
+    wrapper.vm.addMobster();
 
-    expect(wrapper.vm.mobsters[0].isDriving).toBe(false);
-    wrapper.vm.setDriver(0);
     expect(wrapper.vm.mobsters[0].isDriving).toBe(true);
+    expect(wrapper.vm.mobsters[1].isDriving).toBe(false);
+
+    wrapper.vm.setDriver(1);
+    expect(wrapper.vm.mobsters[1].isDriving).toBe(true);
   });
 
   it("allows a mobster's avatar to be toggled", () => {
@@ -81,5 +86,20 @@ describe("MobsterList.vue", () => {
     wrapper.vm.addMobster();
 
     expect(wrapper.vm.mobsters.length).toBe(0);
+  });
+
+  it("listens for a rotateMobster event and rotates the current driver", () => {
+    const wrapper = shallowMount(MobsterList, {
+      localVue
+    });
+
+    wrapper.vm.mobsterName = "Dave";
+    wrapper.vm.addMobster();
+    wrapper.vm.mobsterName = "Suzie";
+    wrapper.vm.addMobster();
+
+    eventBus.$emit("rotateMobster");
+    expect(wrapper.vm.mobsters[0].isDriving).toBe(false);
+    expect(wrapper.vm.mobsters[1].isDriving).toBe(true);
   });
 });

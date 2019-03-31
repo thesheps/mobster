@@ -54,6 +54,7 @@
 <script>
 import avatarService from "../utils/avatar-service.js";
 import draggable from "vuedraggable";
+import eventBus from "../../src/utils/event-bus";
 
 export default {
   components: {
@@ -64,8 +65,36 @@ export default {
     mobsterName: "",
     mobsters: [],
     errorText: "",
-    showError: false
+    showError: false,
+    currentDriver: 0
   }),
+
+  watch: {
+    currentDriver(index) {
+      this.mobsters.forEach((m, i) => {
+        m.isDriving = false;
+        this.$set(this.mobsters, i, m);
+      });
+
+      let mobster = this.mobsters[index];
+      if (!mobster) return;
+
+      mobster.isDriving = !mobster.isDriving;
+      this.$set(this.mobsters, index, mobster);
+    }
+  },
+
+  mounted() {
+    const self = this;
+
+    eventBus.$on("rotateMobster", () => {
+      if (self.currentDriver === self.mobsters.length - 1) {
+        self.currentDriver = 0;
+      } else {
+        self.currentDriver++;
+      }
+    });
+  },
 
   methods: {
     addMobster() {
@@ -81,21 +110,18 @@ export default {
         id: this.mobsters.length,
         name: this.mobsterName,
         avatar: url,
-        isDriving: false
+        isDriving: this.mobsters.length == 0 ? true : false
       });
 
       this.mobsterName = "";
     },
 
-    setDriver(index) {
-      this.mobsters.forEach((m, i) => {
-        m.isDriving = false;
-        this.$set(this.mobsters, i, m);
-      });
+    removeMobster(index) {
+      this.$delete(this.mobsters, index);
+    },
 
-      let mobster = this.mobsters[index];
-      mobster.isDriving = !mobster.isDriving;
-      this.$set(this.mobsters, index, mobster);
+    setDriver(index) {
+      this.currentDriver = index;
     },
 
     toggleAvatar(index) {
@@ -108,10 +134,6 @@ export default {
       mobster.avatar = avatar;
 
       this.$set(this.mobsters, index, mobster);
-    },
-
-    removeMobster(index) {
-      this.$delete(this.mobsters, index);
     }
   }
 };

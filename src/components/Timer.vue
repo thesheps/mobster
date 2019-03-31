@@ -81,7 +81,7 @@ export default {
 
       if (this.isRunning) {
         let self = this;
-        this.stopwatch = new Stopwatch(1, { seconds: this.secondsLeft });
+        this.stopwatch = new Stopwatch(1, { seconds: this.totalSeconds });
 
         this.stopwatch.on("tick", function(secondsLeft) {
           self.secondsLeft = secondsLeft;
@@ -100,6 +100,7 @@ export default {
     rotateMobster() {
       this.toggleTimer(false);
       eventBus.$emit("rotateMobster");
+      this.toggleTimer(true);
     },
 
     handleResize() {
