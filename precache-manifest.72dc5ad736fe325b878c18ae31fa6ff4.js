@@ -1,23 +1,27 @@
 self.__precacheManifest = [
   {
-    "revision": "5f0cab64a196d44bb09a",
+    "revision": "a4b3c9e21c2fb10c5789",
     "url": "/mobster/css/app.07d970b8.css"
   },
   {
-    "revision": "5f0cab64a196d44bb09a",
-    "url": "/mobster/js/app.98d16728.js"
+    "revision": "a4b3c9e21c2fb10c5789",
+    "url": "/mobster/js/app.71e4a4d2.js"
   },
   {
-    "revision": "06710155cfb66a04fefe",
-    "url": "/mobster/css/chunk-vendors.28c3580b.css"
+    "revision": "9365d9df490a4fa3c862",
+    "url": "/mobster/css/chunk-vendors.a103c30e.css"
   },
   {
-    "revision": "06710155cfb66a04fefe",
-    "url": "/mobster/js/chunk-vendors.de1e8d84.js"
+    "revision": "9365d9df490a4fa3c862",
+    "url": "/mobster/js/chunk-vendors.149c1ec3.js"
   },
   {
-    "revision": "3a9c4d7528b76e3e95f3959b69596172",
+    "revision": "85141037238bb679e68cb4500cb9e2a8",
     "url": "/mobster/index.html"
+  },
+  {
+    "revision": "d41d8cd98f00b204e9800998ecf8427e",
+    "url": "/mobster/.nojekyll "
   },
   {
     "revision": "b6216d61c03e6ce0c9aea6ca7808f7ca",
