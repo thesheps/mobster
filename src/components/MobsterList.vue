@@ -48,6 +48,17 @@
       {{ errorText }}
       <v-btn color="pink" flat @click="showError = false">Close</v-btn>
     </v-snackbar>
+
+    <v-dialog v-model="showBreakDialog" persistent max-width="290">
+      <v-card>
+        <v-card-title class="headline">Time to take a break!</v-card-title>
+        <v-card-text>Well done Mobsters, now go and recharge your batteries!</v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="green darken-1" flat @click="showBreakDialog = false">Ok</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-list>
 </template>
 
@@ -66,6 +77,7 @@ export default {
     mobsters: [],
     errorText: "",
     showError: false,
+    showBreakDialog: false,
     currentDriver: 0
   }),
 
@@ -101,12 +113,13 @@ export default {
     });
 
     eventBus.$on("takeABreak", () => {
+      self.showBreakDialog = true;
       self.rotateDriver();
 
       notificationService.raiseNotification(
-        "Take a break!",
+        "Break time!",
         "img/icons/coffee.png",
-        "Well done Mobsters - go get some fresh air!"
+        "Step away from the keyboard!"
       );
     });
   },
