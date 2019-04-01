@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.455820c50c9e60dcc6e75a9dbe461c6e.js"
+  "/precache-manifest.6d75a53a4820ebb7350aadbdb9150fc1.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "mobster"});
