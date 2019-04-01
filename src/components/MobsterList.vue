@@ -1,9 +1,10 @@
 <template>
   <v-list>
-    <v-subheader large>Mobsters</v-subheader>
+    <v-subheader class="display-1 mb-4 mt-4">Mobsters</v-subheader>
 
     <v-list-tile class="mb-4">
       <v-text-field
+        class="title"
         v-on:keyup.enter="addMobster"
         v-model="mobsterName"
         placeholder="Add a new Mobster..."

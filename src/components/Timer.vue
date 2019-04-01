@@ -9,6 +9,7 @@
         rotate="-90"
       >
         <v-card-text class="display-4">{{ secondsLeft | timeRemaining }}</v-card-text>
+        <v-card-text v-if="breakFrequency > 0" class="display-2 text-md-center">{{ breakMessage }}</v-card-text>
       </v-progress-circular>
     </v-layout>
 
@@ -36,7 +37,7 @@ export default {
     size: 450,
     width: 125,
     isRunning: false,
-    stopwatch: { stop() {} },
+    stopwatch: { start: () => {}, stop: () => {} },
     buttonLabel: "Start",
     secondsLeft: 0,
     totalSeconds: 0,
@@ -51,7 +52,7 @@ export default {
     cycleTime(newValue) {
       this.secondsLeft = new moment.duration(newValue).asSeconds();
       this.totalSeconds = this.secondsLeft;
-      this.toggleTimer(false);
+      this.resetTimer();
     },
 
     isRunning(newValue) {
@@ -62,6 +63,11 @@ export default {
   computed: {
     ratio() {
       return (this.secondsLeft / this.totalSeconds) * 100;
+    },
+
+    breakMessage() {
+      let rotations = this.breakFrequency - this.rotation;
+      return `${rotations} more rotation${rotations > 1 ? "s" : ""}!`;
     }
   },
 
@@ -82,21 +88,24 @@ export default {
   },
 
   methods: {
+    resetTimer() {
+      this.stopwatch.stop();
+      this.isRunning = false;
+      this.stopwatch = new Stopwatch(1, { seconds: this.totalSeconds });
+
+      this.stopwatch.on("tick", secondsLeft => {
+        this.secondsLeft = secondsLeft;
+      });
+
+      this.stopwatch.on("end", _ => {
+        this.rotateMobster();
+      });
+    },
+
     toggleTimer(isRunning) {
       this.isRunning = isRunning;
 
       if (this.isRunning) {
-        let self = this;
-        this.stopwatch = new Stopwatch(1, { seconds: this.totalSeconds });
-
-        this.stopwatch.on("tick", secondsLeft => {
-          self.secondsLeft = secondsLeft;
-        });
-
-        this.stopwatch.on("end", _ => {
-          self.rotateMobster();
-        });
-
         this.stopwatch.start();
       } else {
         this.stopwatch.stop();
@@ -104,10 +113,10 @@ export default {
     },
 
     rotateMobster() {
-      this.toggleTimer(false);
+      this.resetTimer();
       this.rotation++;
 
-      if (this.rotation === this.breakFrequency) {
+      if (this.breakFrequency > 0 && this.rotation === this.breakFrequency) {
         this.rotation = 0;
         eventBus.$emit("takeABreak");
       } else {

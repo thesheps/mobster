@@ -1,10 +1,10 @@
 <template>
   <v-list>
-    <v-subheader>Configuration</v-subheader>
+    <v-subheader class="display-1 mb-4">Configuration</v-subheader>
 
     <v-list-tile>
       <v-text-field
-        large
+        class="title"
         label="Cycle time"
         v-model="cycleTime"
         mask="##:##:##"
@@ -15,8 +15,8 @@
 
     <v-list-tile class="mt-4">
       <v-text-field
-        mask="#"
-        large
+        class="title"
+        mask="##"
         label="Break frequency"
         v-model="breakFrequency"
         placeholder="Every N turns..."
@@ -38,14 +38,14 @@ export default {
     cycleTime(newValue) {
       this.$emit("input", {
         cycleTime: newValue,
-        breakFrequency: this.breakFrequency
+        breakFrequency: parseInt(this.breakFrequency)
       });
     },
 
     breakFrequency(newValue) {
       this.$emit("input", {
         cycleTime: this.cycleTime,
-        breakFrequency: newValue
+        breakFrequency: parseInt(newValue)
       });
     }
   },
