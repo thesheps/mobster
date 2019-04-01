@@ -13,6 +13,7 @@
     "@types/webpack-env": "^1.13.9",
     "gh-pages": "^2.0.1",
     "moment": "^2.24.0",
+    "push.js": "^1.0.9",
     "register-service-worker": "^1.6.2",
     "stopwatch": "^0.2.0",
     "vue": "^2.6.6",

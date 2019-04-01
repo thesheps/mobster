@@ -15,6 +15,7 @@
 
     <v-list-tile class="mt-4">
       <v-text-field
+        mask="#"
         large
         label="Break frequency"
         v-model="breakFrequency"
@@ -29,7 +30,7 @@ export default {
   data() {
     return {
       cycleTime: "00:08:00",
-      breakFrequency: null
+      breakFrequency: 4
     };
   },
 

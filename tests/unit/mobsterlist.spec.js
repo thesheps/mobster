@@ -1,7 +1,12 @@
+jest.mock("../../src/utils/notification-service", () => ({
+  raiseNotification: jest.fn()
+}));
+
 import { shallowMount } from "@vue/test-utils";
 import localVueFactory from "./local-vue-factory";
 import MobsterList from "../../src/components/MobsterList.vue";
 import eventBus from "../../src/utils/event-bus";
+import notificationService from "../../src/utils/notification-service";
 
 describe("MobsterList.vue", () => {
   const localVue = localVueFactory.create();
@@ -99,7 +104,9 @@ describe("MobsterList.vue", () => {
     wrapper.vm.addMobster();
 
     eventBus.$emit("rotateMobster");
+
     expect(wrapper.vm.mobsters[0].isDriving).toBe(false);
     expect(wrapper.vm.mobsters[1].isDriving).toBe(true);
+    expect(notificationService.raiseNotification).toHaveBeenCalled();
   });
 });

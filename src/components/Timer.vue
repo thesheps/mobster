@@ -28,7 +28,6 @@
 import moment from "moment";
 import { Stopwatch } from "stopwatch";
 import eventBus from "../utils/event-bus";
-import notificationService from "../utils/notification-service.js";
 
 export default {
   props: ["cycleTime", "disabled"],
@@ -74,7 +73,6 @@ export default {
 
   created() {
     window.addEventListener("resize", this.handleResize);
-    notificationService.requestPermission();
     this.handleResize();
   },
 

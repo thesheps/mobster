@@ -1,9 +1,15 @@
-const notificationService = {
-  requestPermission: () => {},
+import Push from "push.js";
 
-  show: (title, body) => {
-    return `img/avatars/${Math.floor(Math.random() * 9) + 1}.jpg`;
+export default {
+  raiseNotification(title, icon, body) {
+    Push.create(title, {
+      body: body,
+      icon: icon,
+      timeout: 4000,
+      onClick: function() {
+        window.focus();
+        this.close();
+      }
+    });
   }
 };
-
-export default notificationService;

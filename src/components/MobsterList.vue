@@ -1,6 +1,6 @@
 <template>
   <v-list>
-    <v-subheader large>Mobbers</v-subheader>
+    <v-subheader large>Mobsters</v-subheader>
 
     <v-list-tile>
       <v-text-field
@@ -52,10 +52,9 @@
 </template>
 
 <script>
-import avatarService from "../utils/avatar-service.js";
-import notificationService from "../utils/notification-service.js";
 import draggable from "vuedraggable";
 import eventBus from "../../src/utils/event-bus";
+import notificationService from "../../src/utils/notification-service";
 
 export default {
   components: {
@@ -71,17 +70,24 @@ export default {
   }),
 
   watch: {
-    currentDriver(index) {
-      this.mobsters.forEach((m, i) => {
-        m.isDriving = false;
-        this.$set(this.mobsters, i, m);
-      });
+    currentDriver(newValue, oldValue) {
+      let lastDriver = this.mobsters[oldValue];
+      if (lastDriver) {
+        lastDriver.isDriving = false;
+        this.$set(this.mobsters, oldValue, lastDriver);
+      }
 
-      let mobster = this.mobsters[index];
-      if (!mobster) return;
+      let newDriver = this.mobsters[newValue];
+      if (!newDriver) return;
 
-      mobster.isDriving = !mobster.isDriving;
-      this.$set(this.mobsters, index, mobster);
+      newDriver.isDriving = true;
+      this.$set(this.mobsters, newValue, newDriver);
+
+      notificationService.raiseNotification(
+        "Time to rotate!",
+        newDriver.avatar,
+        `${lastDriver.name}, give the wheel to ${newDriver.name}!`
+      );
     }
   },
 
@@ -105,12 +111,10 @@ export default {
         return;
       }
 
-      let url = avatarService.getAvatar();
-
       this.mobsters.push({
         id: this.mobsters.length,
         name: this.mobsterName,
-        avatar: url,
+        avatar: this.getAvatar(),
         isDriving: this.mobsters.length == 0 ? true : false
       });
 
@@ -124,26 +128,23 @@ export default {
     },
 
     setDriver(index) {
-      notificationService.show(
-        "Time to rotate!",
-        `${this.mobsters[this.currentDriver].name}, give the wheel to ${
-          this.mobsters[index].name
-        }!`
-      );
-
       this.currentDriver = index;
     },
 
     toggleAvatar(index) {
       let mobster = this.mobsters[index];
-      let avatar = avatarService.getAvatar();
+      let avatar = this.getAvatar();
+      
       while (avatar === mobster.avatar) {
-        avatar = avatarService.getAvatar();
+        avatar = this.getAvatar();
       }
 
       mobster.avatar = avatar;
-
       this.$set(this.mobsters, index, mobster);
+    },
+
+    getAvatar() {
+      return `img/avatars/${Math.floor(Math.random() * 9) + 1}.jpg`;
     }
   }
 };
