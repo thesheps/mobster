@@ -53,6 +53,7 @@
 
 <script>
 import avatarService from "../utils/avatar-service.js";
+import notificationService from "../utils/notification-service.js";
 import draggable from "vuedraggable";
 import eventBus from "../../src/utils/event-bus";
 
@@ -123,14 +124,11 @@ export default {
     },
 
     setDriver(index) {
-      this.$notification.show(
+      notificationService.show(
         "Time to rotate!",
-        {
-          body: `${this.mobsters[this.currentDriver].name}, give the wheel to ${
-            this.mobsters[index].name
-          }!`
-        },
-        {}
+        `${this.mobsters[this.currentDriver].name}, give the wheel to ${
+          this.mobsters[index].name
+        }!`
       );
 
       this.currentDriver = index;

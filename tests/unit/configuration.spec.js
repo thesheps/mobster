@@ -22,6 +22,5 @@ describe("Configuration.vue", () => {
 
     const textbox = wrapper.find("v-text-field-stub");
     expect(textbox.is("v-text-field-stub")).toBe(true);
-    expect(textbox.length).toBe(2);
   });
 });
