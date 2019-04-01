@@ -2,7 +2,7 @@
   <v-list>
     <v-subheader large>Mobsters</v-subheader>
 
-    <v-list-tile>
+    <v-list-tile class="mb-4">
       <v-text-field
         v-on:keyup.enter="addMobster"
         v-model="mobsterName"
@@ -82,12 +82,6 @@ export default {
 
       newDriver.isDriving = true;
       this.$set(this.mobsters, newValue, newDriver);
-
-      notificationService.raiseNotification(
-        "Time to rotate!",
-        newDriver.avatar,
-        `${lastDriver.name}, give the wheel to ${newDriver.name}!`
-      );
     }
   },
 
@@ -95,11 +89,25 @@ export default {
     const self = this;
 
     eventBus.$on("rotateMobster", () => {
-      if (self.currentDriver === self.mobsters.length - 1) {
-        self.currentDriver = 0;
-      } else {
-        self.currentDriver++;
-      }
+      self.rotateDriver();
+
+      if (self.mobsters.length === 0) return;
+
+      notificationService.raiseNotification(
+        "Time to rotate!",
+        self.mobsters[self.currentDriver].avatar,
+        `Take the wheel, ${self.mobsters[self.currentDriver].name}!`
+      );
+    });
+
+    eventBus.$on("takeABreak", () => {
+      self.rotateDriver();
+
+      notificationService.raiseNotification(
+        "Take a break!",
+        "img/icons/coffee.png",
+        "Well done Mobsters - go get some fresh air!"
+      );
     });
   },
 
@@ -131,10 +139,18 @@ export default {
       this.currentDriver = index;
     },
 
+    rotateDriver() {
+      if (this.currentDriver === this.mobsters.length - 1) {
+        this.currentDriver = 0;
+      } else {
+        this.currentDriver++;
+      }
+    },
+
     toggleAvatar(index) {
       let mobster = this.mobsters[index];
       let avatar = this.getAvatar();
-      
+
       while (avatar === mobster.avatar) {
         avatar = this.getAvatar();
       }

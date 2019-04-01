@@ -79,4 +79,19 @@ describe("Timer.vue", () => {
 
     expect(eventEmitted).toBeTruthy();
   });
+
+  it("emits a take-a-break event after configured number of rotations", () => {
+    let eventEmitted = false;
+    eventBus.$on("takeABreak", () => (eventEmitted = true));
+
+    const wrapper = shallowMount(Timer, {
+      localVue,
+      propsData: { breakFrequency: 2 }
+    });
+
+    wrapper.vm.rotateMobster();
+    wrapper.vm.rotateMobster();
+
+    expect(eventEmitted).toBeTruthy();
+  });
 });

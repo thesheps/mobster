@@ -25,12 +25,12 @@
 </template>
 
 <script>
-import moment from "moment";
 import { Stopwatch } from "stopwatch";
+import moment from "moment";
 import eventBus from "../utils/event-bus";
 
 export default {
-  props: ["cycleTime", "disabled"],
+  props: ["cycleTime", "breakFrequency", "disabled"],
 
   data: () => ({
     size: 450,
@@ -39,10 +39,15 @@ export default {
     stopwatch: { stop() {} },
     buttonLabel: "Start",
     secondsLeft: 0,
-    totalSeconds: 0
+    totalSeconds: 0,
+    rotation: 0
   }),
 
   watch: {
+    breakFrequency(newValue) {
+      this.rotation = 0;
+    },
+
     cycleTime(newValue) {
       this.secondsLeft = new moment.duration(newValue).asSeconds();
       this.totalSeconds = this.secondsLeft;
@@ -77,10 +82,6 @@ export default {
   },
 
   methods: {
-    thing() {
-      console.log("FUCK");
-    },
-
     toggleTimer(isRunning) {
       this.isRunning = isRunning;
 
@@ -88,11 +89,11 @@ export default {
         let self = this;
         this.stopwatch = new Stopwatch(1, { seconds: this.totalSeconds });
 
-        this.stopwatch.on("tick", function(secondsLeft) {
+        this.stopwatch.on("tick", secondsLeft => {
           self.secondsLeft = secondsLeft;
         });
 
-        this.stopwatch.on("end", function() {
+        this.stopwatch.on("end", _ => {
           self.rotateMobster();
         });
 
@@ -104,8 +105,15 @@ export default {
 
     rotateMobster() {
       this.toggleTimer(false);
-      eventBus.$emit("rotateMobster");
-      this.toggleTimer(true);
+      this.rotation++;
+
+      if (this.rotation === this.breakFrequency) {
+        this.rotation = 0;
+        eventBus.$emit("takeABreak");
+      } else {
+        eventBus.$emit("rotateMobster");
+        this.toggleTimer(true);
+      }
     },
 
     handleResize() {
@@ -118,5 +126,3 @@ export default {
   }
 };
 </script>
-
-<style></style>

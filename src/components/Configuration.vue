@@ -1,6 +1,6 @@
 <template>
   <v-list>
-    <v-subheader large>Configuration</v-subheader>
+    <v-subheader>Configuration</v-subheader>
 
     <v-list-tile>
       <v-text-field
@@ -58,5 +58,3 @@ export default {
   }
 };
 </script>
-
-<style></style>
