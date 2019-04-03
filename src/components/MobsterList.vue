@@ -13,17 +13,17 @@
       ></v-text-field>
     </v-list-tile>
 
-    <draggable v-model="mobsters" handle=".dragger">
+    <draggable v-model="mobsters" handle=".handle">
       <transition-group type="transition" name="flip-fade">
-        <v-list-tile
-          v-for="(mobster, index) in mobsters"
-          :key="mobster.id"
-          avatar
-          class="dragger"
-          @click
-        >
+        <v-list-tile v-for="(mobster, index) in mobsters" :key="mobster.id" avatar class="dragger">
+          <v-list-tile-action class="handle">
+            <v-icon>drag_indicator</v-icon>
+          </v-list-tile-action>
+
           <v-list-tile-action @click="setDriver(index)">
-            <v-icon :color="mobster.isDriving ? 'pink' : 'grey'">drive_eta</v-icon>
+            <v-btn icon ripple>
+              <v-icon :color="isDriving(index)">drive_eta</v-icon>
+            </v-btn>
           </v-list-tile-action>
 
           <v-list-tile-avatar @click="toggleAvatar(index)">
@@ -82,22 +82,6 @@ export default {
     currentDriver: 0
   }),
 
-  watch: {
-    currentDriver(newValue, oldValue) {
-      let lastDriver = this.mobsters[oldValue];
-      if (lastDriver) {
-        lastDriver.isDriving = false;
-        this.$set(this.mobsters, oldValue, lastDriver);
-      }
-
-      let newDriver = this.mobsters[newValue];
-      if (!newDriver) return;
-
-      newDriver.isDriving = true;
-      this.$set(this.mobsters, newValue, newDriver);
-    }
-  },
-
   mounted() {
     const self = this;
 
@@ -126,6 +110,10 @@ export default {
   },
 
   methods: {
+    isDriving(index) {
+      return index === this.currentDriver ? "pink" : "grey";
+    },
+
     addMobster() {
       if (!this.mobsterName) {
         this.errorText = "Please enter a mobster name!";
@@ -136,8 +124,7 @@ export default {
       this.mobsters.push({
         id: this.mobsters.length,
         name: this.mobsterName,
-        avatar: this.getAvatar(),
-        isDriving: this.mobsters.length == 0 ? true : false
+        avatar: this.getAvatar()
       });
 
       this.mobsterName = "";
@@ -195,7 +182,7 @@ export default {
   opacity: 0;
 }
 
-.dragger {
+.handle {
   cursor: pointer;
 }
 </style>
