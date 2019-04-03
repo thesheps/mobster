@@ -80,8 +80,11 @@ export default {
       let hours = ("0" + duration.hours()).slice(-2);
       let minutes = ("0" + duration.minutes()).slice(-2);
       let seconds = ("0" + duration.seconds()).slice(-2);
+      let timeRemaining = `${hours}:${minutes}:${seconds}`;
 
-      return `${hours}:${minutes}:${seconds}`;
+      eventBus.$emit("timerTick", timeRemaining);
+
+      return timeRemaining;
     }
   },
 

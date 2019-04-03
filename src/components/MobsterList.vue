@@ -6,8 +6,8 @@
       <v-text-field
         class="title"
         v-on:keyup.enter="addMobster"
-        v-model="mobsterName"
-        placeholder="Add a new Mobster..."
+        v-model="name"
+        placeholder="Add a new Mobster (at least 2)..."
         autofocus
         label="Mobster name"
       ></v-text-field>
@@ -74,7 +74,7 @@ export default {
   },
 
   data: () => ({
-    mobsterName: "",
+    name: "",
     mobsters: [],
     errorText: "",
     showError: false,
@@ -88,7 +88,7 @@ export default {
     eventBus.$on("rotateMobster", () => {
       self.rotateDriver();
 
-      if (self.mobsters.length === 0) return;
+      if (!self.mobsters || self.mobsters.length === 0) return;
 
       notificationService.raiseNotification(
         "Time to rotate!",
@@ -107,6 +107,16 @@ export default {
         "Step away from the keyboard!"
       );
     });
+
+    eventBus.$on("timerTick", timeRemaining => {
+      if (self.mobsters.length > 0 && self.mobsters[self.currentDriver]) {
+        document.title = `${
+          self.mobsters[self.currentDriver].name
+        } - ${timeRemaining}`;
+      } else {
+        document.title = "Mobster";
+      }
+    });
   },
 
   methods: {
@@ -115,7 +125,7 @@ export default {
     },
 
     addMobster() {
-      if (!this.mobsterName) {
+      if (!this.name) {
         this.errorText = "Please enter a mobster name!";
         this.showError = true;
         return;
@@ -123,11 +133,11 @@ export default {
 
       this.mobsters.push({
         id: this.mobsters.length,
-        name: this.mobsterName,
+        name: this.name,
         avatar: this.getAvatar()
       });
 
-      this.mobsterName = "";
+      this.name = "";
       this.$emit("input", this.mobsters);
     },
 

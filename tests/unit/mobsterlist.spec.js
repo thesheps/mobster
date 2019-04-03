@@ -26,7 +26,7 @@ describe("MobsterList.vue", () => {
     });
 
     expect(wrapper.vm.mobsters.length).toBe(0);
-    wrapper.vm.mobsterName = "Dave";
+    wrapper.vm.name = "Dave";
     wrapper.vm.addMobster();
 
     expect(wrapper.vm.mobsters.length).toBe(1);
@@ -40,9 +40,9 @@ describe("MobsterList.vue", () => {
     });
 
     expect(wrapper.vm.mobsters.length).toBe(0);
-    wrapper.vm.mobsterName = "Dave";
+    wrapper.vm.name = "Dave";
     wrapper.vm.addMobster();
-    wrapper.vm.mobsterName = "Suzie";
+    wrapper.vm.name = "Suzie";
     wrapper.vm.addMobster();
 
     expect(wrapper.vm.currentDriver).toBe(0);
@@ -57,7 +57,7 @@ describe("MobsterList.vue", () => {
     });
 
     expect(wrapper.vm.mobsters.length).toBe(0);
-    wrapper.vm.mobsterName = "Dave";
+    wrapper.vm.name = "Dave";
     wrapper.vm.addMobster();
 
     let avatar = wrapper.vm.mobsters[0].avatar;
@@ -72,7 +72,7 @@ describe("MobsterList.vue", () => {
     });
 
     expect(wrapper.vm.mobsters.length).toBe(0);
-    wrapper.vm.mobsterName = "Dave";
+    wrapper.vm.name = "Dave";
     wrapper.vm.addMobster();
 
     expect(wrapper.vm.mobsters.length).toBe(1);
@@ -86,7 +86,7 @@ describe("MobsterList.vue", () => {
     });
 
     expect(wrapper.vm.mobsters.length).toBe(0);
-    wrapper.vm.mobsterName = "";
+    wrapper.vm.name = "";
     wrapper.vm.addMobster();
 
     expect(wrapper.vm.mobsters.length).toBe(0);
@@ -97,10 +97,11 @@ describe("MobsterList.vue", () => {
       localVue
     });
 
-    wrapper.vm.mobsterName = "Dave";
+    wrapper.vm.name = "Dave";
     wrapper.vm.addMobster();
-    wrapper.vm.mobsterName = "Suzie";
+    wrapper.vm.name = "Suzie";
     wrapper.vm.addMobster();
+    wrapper.vm.setDriver(0);
 
     eventBus.$emit("rotateMobster");
 
