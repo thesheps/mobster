@@ -9,7 +9,10 @@
         rotate="-90"
       >
         <v-card-text class="display-4">{{ secondsLeft | timeRemaining }}</v-card-text>
-        <v-card-text v-if="breakFrequency > 0" class="display-2 text-md-center">{{ breakMessage }}</v-card-text>
+        <v-card-text
+          v-if="breakFrequency > 0"
+          class="display-4 text-md-center font-weight-black"
+        >{{ breakMessage }}</v-card-text>
       </v-progress-circular>
     </v-layout>
 
@@ -67,7 +70,7 @@ export default {
 
     breakMessage() {
       let rotations = this.breakFrequency - this.rotation;
-      return `${rotations} more rotation${rotations > 1 ? "s" : ""}!`;
+      return `${rotations} More Turn${rotations > 1 ? "s" : ""}!`;
     }
   },
 

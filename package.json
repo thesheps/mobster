@@ -7,7 +7,7 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "deploy": "gh-pages -t -d dist -u 'Chris Shepherd <admin@thesheps.dev>'",
-    "test:unit": "vue-cli-service test:unit"
+    "test:unit": "jest --clearCache && vue-cli-service test:unit"
   },
   "dependencies": {
     "@types/webpack-env": "^1.13.9",
@@ -81,7 +81,7 @@
       "^.+\\.(js|jsx)?$": "babel-jest"
     },
     "transformIgnorePatterns": [
-      "/node_modules/(?!vuetify/.*)"
+      "/node_modules/(?!vuetify)"
     ],
     "moduleNameMapper": {
       "^@/(.*)$": "<rootDir>/src/$1"
