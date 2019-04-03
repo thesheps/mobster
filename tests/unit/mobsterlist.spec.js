@@ -45,11 +45,10 @@ describe("MobsterList.vue", () => {
     wrapper.vm.mobsterName = "Suzie";
     wrapper.vm.addMobster();
 
-    expect(wrapper.vm.mobsters[0].isDriving).toBe(true);
-    expect(wrapper.vm.mobsters[1].isDriving).toBe(false);
+    expect(wrapper.vm.currentDriver).toBe(0);
 
     wrapper.vm.setDriver(1);
-    expect(wrapper.vm.mobsters[1].isDriving).toBe(true);
+    expect(wrapper.vm.currentDriver).toBe(1);
   });
 
   it("allows a mobster's avatar to be toggled", () => {
@@ -105,8 +104,7 @@ describe("MobsterList.vue", () => {
 
     eventBus.$emit("rotateMobster");
 
-    expect(wrapper.vm.mobsters[0].isDriving).toBe(false);
-    expect(wrapper.vm.mobsters[1].isDriving).toBe(true);
+    expect(wrapper.vm.currentDriver).toBe(1a);
     expect(notificationService.raiseNotification).toHaveBeenCalled();
   });
 });
