@@ -104,7 +104,7 @@ describe("MobsterList.vue", () => {
 
     eventBus.$emit("rotateMobster");
 
-    expect(wrapper.vm.currentDriver).toBe(1a);
+    expect(wrapper.vm.currentDriver).toBe(1);
     expect(notificationService.raiseNotification).toHaveBeenCalled();
   });
 });
