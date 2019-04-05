@@ -26,9 +26,15 @@
             </v-btn>
           </v-list-tile-action>
 
+          <v-list-tile-action @click="mobster.showCamera = true">
+            <v-btn icon ripple>
+              <v-icon>camera_enhance</v-icon>
+            </v-btn>
+          </v-list-tile-action>
+
           <v-list-tile-avatar @click="toggleAvatar(index)">
             <transition name="flip-fade" mode="out-in">
-              <img :key="mobster.avatar" :src="mobster.avatar">
+              <img :key="mobster.avatar" :src="mobster.photo ? mobster.photo : mobster.avatar">
             </transition>
           </v-list-tile-avatar>
 
@@ -41,6 +47,12 @@
               <v-icon color="grey lighten-1">delete</v-icon>
             </v-btn>
           </v-list-tile-action>
+
+          <Camera
+            :showCamera="mobster.showCamera"
+            v-model="mobster.photo"
+            @close="mobster.showCamera = false"
+          ></Camera>
         </v-list-tile>
       </transition-group>
     </draggable>
@@ -67,10 +79,12 @@
 import draggable from "vuedraggable";
 import eventBus from "../../src/utils/event-bus";
 import notificationService from "../../src/utils/notification-service";
+import Camera from "./Camera";
 
 export default {
   components: {
-    draggable
+    draggable,
+    Camera
   },
 
   data: () => ({
@@ -134,7 +148,8 @@ export default {
       this.mobsters.push({
         id: this.mobsters.length,
         name: this.name,
-        avatar: this.getAvatar()
+        avatar: this.getAvatar(),
+        showCamera: false
       });
 
       this.name = "";
