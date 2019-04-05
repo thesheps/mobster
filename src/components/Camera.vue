@@ -9,7 +9,7 @@
         <v-toolbar-title>Say Cheese!!</v-toolbar-title>
       </v-toolbar>
 
-      <video :v-if="show" ref="camera"></video>
+      <video class="camera" :v-if="show" ref="camera"></video>
 
       <v-card-actions>
         <v-spacer></v-spacer>
@@ -60,3 +60,9 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.camera {
+  transform: translateX(calc((100% - 45vw) / 2));
+}
+</style>

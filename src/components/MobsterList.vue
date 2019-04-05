@@ -2,7 +2,7 @@
   <v-list>
     <v-subheader class="display-1 mb-4 mt-4">Mobsters</v-subheader>
 
-    <v-list-tile class="mb-4">
+    <v-list-tile>
       <v-text-field
         class="title"
         v-on:keyup.enter="addMobster"
@@ -15,36 +15,41 @@
 
     <draggable v-model="mobsters" handle=".handle">
       <transition-group type="transition" name="flip-fade">
-        <v-list-tile v-for="(mobster, index) in mobsters" :key="mobster.id" avatar class="dragger">
+        <v-list-tile
+          v-for="(mobster, index) in mobsters"
+          :key="mobster.id"
+          avatar
+          class="mt-4 dragger"
+        >
           <v-list-tile-action class="handle">
-            <v-icon>drag_indicator</v-icon>
+            <v-icon large>drag_indicator</v-icon>
           </v-list-tile-action>
 
           <v-list-tile-action @click="setDriver(index)">
-            <v-btn icon ripple>
-              <v-icon :color="isDriving(index)">drive_eta</v-icon>
+            <v-btn large icon ripple>
+              <v-icon large :color="isDriving(index)">drive_eta</v-icon>
             </v-btn>
           </v-list-tile-action>
 
           <v-list-tile-action @click="mobster.showCamera = true">
             <v-btn icon ripple>
-              <v-icon>camera_enhance</v-icon>
+              <v-icon large>camera_enhance</v-icon>
             </v-btn>
           </v-list-tile-action>
 
-          <v-list-tile-avatar @click="toggleAvatar(index)">
+          <v-list-tile-avatar size="50" @click="toggleAvatar(index)">
             <transition name="flip-fade" mode="out-in">
               <img :key="mobster.avatar" :src="mobster.photo ? mobster.photo : mobster.avatar">
             </transition>
           </v-list-tile-avatar>
 
-          <v-list-tile-content>
+          <v-list-tile-content class="ml-4">
             <v-list-tile-title v-text="mobster.name"></v-list-tile-title>
           </v-list-tile-content>
 
           <v-list-tile-action @click="removeMobster(index)">
             <v-btn icon ripple>
-              <v-icon color="grey lighten-1">delete</v-icon>
+              <v-icon large color="grey lighten-1">delete</v-icon>
             </v-btn>
           </v-list-tile-action>
 
