@@ -1,6 +1,6 @@
 <template>
   <v-container fluid>
-    <v-layout row>
+    <v-layout row v-if="$vuetify.breakpoint.mdAndUp">
       <v-flex class="mr-4">
         <v-list subheader>
           <Configuration v-model="configuration"></Configuration>
@@ -16,6 +16,24 @@
         ></Timer>
       </v-flex>
     </v-layout>
+
+    <v-flex row v-else>
+      <v-flex row class="mr-4">
+        <v-list subheader>
+          <Configuration v-model="configuration"></Configuration>
+          <MobsterList v-model="mobsters"></MobsterList>
+        </v-list>
+      </v-flex>
+
+      <v-flex row shrink>
+        <Timer
+          condensed="true"
+          :disabled="timerDisabled"
+          :breakFrequency="configuration.breakFrequency"
+          :cycleTime="configuration.cycleTime"
+        ></Timer>
+      </v-flex>
+    </v-flex>
   </v-container>
 </template>
 

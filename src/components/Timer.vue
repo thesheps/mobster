@@ -1,6 +1,10 @@
 <template>
   <v-responsive>
-    <v-layout row pb-2 v-on:keyup.enter="thing">
+    <div v-if="condensed" class="text-xs-center">
+      <v-card-text class="display-3">{{ secondsLeft | timeRemaining }}</v-card-text>
+    </div>
+
+    <v-layout v-else row pb-2>
       <v-progress-circular
         v-if="$vuetify.breakpoint.smAndUp"
         :size="size"
@@ -34,7 +38,7 @@ import moment from "moment";
 import eventBus from "../utils/event-bus";
 
 export default {
-  props: ["cycleTime", "breakFrequency", "disabled"],
+  props: ["cycleTime", "breakFrequency", "disabled", "condensed"],
 
   data: () => ({
     size: 450,
