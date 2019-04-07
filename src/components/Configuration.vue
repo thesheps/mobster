@@ -6,10 +6,11 @@
       <v-text-field
         class="title"
         label="Cycle time"
-        v-model="cycleTime"
         mask="##:##:##"
         placeholder="00:08:00"
         return-masked-value
+        :value="cycleTime"
+        @input="updateCycleTime"
       ></v-text-field>
     </v-list-tile>
 
@@ -18,43 +19,33 @@
         class="title"
         mask="##"
         label="Break frequency"
-        v-model="breakFrequency"
         placeholder="Every N turns..."
+        :value="breakFrequency"
+        @input="updateBreakFrequency"
       ></v-text-field>
     </v-list-tile>
   </v-list>
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 export default {
-  data() {
-    return {
-      cycleTime: "00:08:00",
-      breakFrequency: 4
-    };
+  computed: {
+    ...mapState({
+      cycleTime: state => state.cycleTime,
+      breakFrequency: state => state.breakFrequency
+    })
   },
 
-  watch: {
-    cycleTime(newValue) {
-      this.$emit("input", {
-        cycleTime: newValue,
-        breakFrequency: parseInt(this.breakFrequency)
-      });
+  methods: {
+    updateCycleTime(value) {
+      this.$store.commit("updateCycleTime", value);
     },
 
-    breakFrequency(newValue) {
-      this.$emit("input", {
-        cycleTime: this.cycleTime,
-        breakFrequency: parseInt(newValue)
-      });
+    updateBreakFrequency(value) {
+      this.$store.commit("updateBreakFrequency", value);
     }
-  },
-
-  created() {
-    this.$emit("input", {
-      cycleTime: this.cycleTime,
-      breakFrequency: this.breakFrequency
-    });
   }
 };
 </script>
