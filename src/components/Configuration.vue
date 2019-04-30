@@ -11,6 +11,8 @@
         return-masked-value
         :value="cycleTime"
         @input="updateCycleTime"
+        append-outer-icon="refresh"
+        @click:append-outer="updateCycleTime"
       ></v-text-field>
     </v-list-tile>
 
