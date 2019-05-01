@@ -34,11 +34,12 @@
 
 <script>
 import { Stopwatch } from "stopwatch";
+import { mapGetters } from "vuex";
 import moment from "moment";
 import eventBus from "../utils/event-bus";
 
 export default {
-  props: ["cycleTime", "breakFrequency", "disabled", "condensed"],
+  props: ["disabled", "condensed"],
 
   data: () => ({
     size: 450,
@@ -68,6 +69,8 @@ export default {
   },
 
   computed: {
+    ...mapGetters(["cycleTime", "breakFrequency"]),
+
     ratio() {
       return (this.secondsLeft / this.totalSeconds) * 100;
     },
