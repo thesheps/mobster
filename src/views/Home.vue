@@ -9,7 +9,11 @@
       </v-flex>
 
       <v-flex shrink>
-        <Timer :disabled="timerDisabled"></Timer>
+        <Timer
+          :disabled="timerDisabled"
+          :breakFrequency="configuration.breakFrequency"
+          :cycleTime="configuration.cycleTime"
+        ></Timer>
       </v-flex>
     </v-layout>
 
@@ -22,7 +26,12 @@
       </v-flex>
 
       <v-flex row shrink>
-        <Timer condensed="true" :disabled="timerDisabled"></Timer>
+        <Timer
+          condensed="true"
+          :disabled="timerDisabled"
+          :breakFrequency="configuration.breakFrequency"
+          :cycleTime="configuration.cycleTime"
+        ></Timer>
       </v-flex>
     </v-flex>
   </v-container>
