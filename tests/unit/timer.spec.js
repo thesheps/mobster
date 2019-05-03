@@ -2,13 +2,15 @@ import { shallowMount } from "@vue/test-utils";
 import localVueFactory from "./local-vue-factory";
 import Timer from "../../src/components/Timer.vue";
 import eventBus from "../../src/utils/event-bus";
+import store from "../../src/store";
 
 describe("Timer.vue", () => {
   const localVue = localVueFactory.create();
 
   it("contains the progress component", () => {
     const wrapper = shallowMount(Timer, {
-      localVue
+      localVue,
+      store
     });
 
     const progress = wrapper.find("v-progress-circular-stub");
@@ -17,7 +19,8 @@ describe("Timer.vue", () => {
 
   it("contains a pause button", () => {
     const wrapper = shallowMount(Timer, {
-      localVue
+      localVue,
+      store
     });
 
     const pause = wrapper.find("v-btn-stub");
@@ -27,7 +30,8 @@ describe("Timer.vue", () => {
 
   it("starts the timer when you press start", () => {
     const wrapper = shallowMount(Timer, {
-      localVue
+      localVue,
+      store
     });
 
     const pause = wrapper.find("v-btn-stub");
@@ -41,7 +45,8 @@ describe("Timer.vue", () => {
 
   it("stops the timer when you press pause", () => {
     const wrapper = shallowMount(Timer, {
-      localVue
+      localVue,
+      store
     });
 
     const pause = wrapper.find("v-btn-stub");
@@ -56,6 +61,7 @@ describe("Timer.vue", () => {
   it("sets the ratio of completion correctly", () => {
     const wrapper = shallowMount(Timer, {
       localVue,
+      store,
       propsData: { cycleTime: "00:08:00" }
     });
 
@@ -70,6 +76,7 @@ describe("Timer.vue", () => {
 
     const wrapper = shallowMount(Timer, {
       localVue,
+      store,
       propsData: { cycleTime: "00:08:00" }
     });
 
@@ -86,9 +93,15 @@ describe("Timer.vue", () => {
 
     const wrapper = shallowMount(Timer, {
       localVue,
-      propsData: { breakFrequency: 2 }
+      store
     });
 
+    wrapper.vm.rotateMobster();
+    wrapper.vm.rotateMobster();
+    wrapper.vm.rotateMobster();
+    wrapper.vm.rotateMobster();
+    wrapper.vm.rotateMobster();
+    wrapper.vm.rotateMobster();
     wrapper.vm.rotateMobster();
     wrapper.vm.rotateMobster();
 

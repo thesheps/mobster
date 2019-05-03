@@ -36,7 +36,7 @@ export default {
   name: "Mobster-Time",
   data() {
     return {
-      dark: false
+      dark: true
     };
   }
 };

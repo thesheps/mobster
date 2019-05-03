@@ -1,6 +1,7 @@
 import { createLocalVue } from "@vue/test-utils";
 import Vuetify from "vuetify";
 import VueRouter from "vue-router";
+import Vuex from "vuex";
 
 import { isRegExp } from "util";
 
@@ -8,6 +9,7 @@ const getInstance = () => {
   const localVue = createLocalVue();
   localVue.use(Vuetify);
   localVue.use(VueRouter);
+  localVue.use(Vuex);
 
   return localVue;
 };

@@ -3,7 +3,7 @@
     <v-layout row v-if="$vuetify.breakpoint.mdAndUp">
       <v-flex class="mr-4">
         <v-list subheader>
-          <Configuration v-model="configuration"></Configuration>
+          <Configuration></Configuration>
           <MobsterList v-model="mobsters"></MobsterList>
         </v-list>
       </v-flex>
@@ -16,7 +16,7 @@
     <v-flex row v-else>
       <v-flex row class="mr-4">
         <v-list subheader>
-          <Configuration v-model="configuration"></Configuration>
+          <Configuration></Configuration>
           <MobsterList v-model="mobsters"></MobsterList>
         </v-list>
       </v-flex>
@@ -29,6 +29,8 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 import Timer from "../components/Timer.vue";
 import MobsterList from "../components/MobsterList.vue";
 import Configuration from "../components/Configuration.vue";
@@ -48,6 +50,13 @@ export default {
     };
   },
 
+  computed: {
+    ...mapState({
+      cycleTime: state => state.cycleTime,
+      breakFrequency: state => state.breakFrequency
+    })
+  },
+
   watch: {
     configuration() {
       this.setTimerDisabled();
@@ -61,8 +70,8 @@ export default {
   methods: {
     setTimerDisabled() {
       this.timerDisabled =
-        this.configuration.cycleTime == null ||
-        this.configuration.breakFrequency == null ||
+        this.cycleTime == null ||
+        this.breakFrequency == null ||
         this.mobsters.length <= 1;
     }
   }
