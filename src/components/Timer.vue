@@ -33,6 +33,7 @@
 </template>
 
 <script>
+import EventBus from "../utils/event-bus";
 import { Stopwatch } from "stopwatch";
 import { mapGetters } from "vuex";
 import moment from "moment";
@@ -96,6 +97,11 @@ export default {
   },
 
   created() {
+    let self = this;
+    EventBus.$on('reset-timer', () => {
+      self.resetTimer();
+    );
+    
     window.addEventListener("resize", this.handleResize);
     this.handleResize();
   },
