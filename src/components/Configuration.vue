@@ -12,7 +12,7 @@
         :value="cycleTime"
         @input="updateCycleTime"
         append-outer-icon="refresh"
-        @click:append-outer="updateCycleTime"
+        @click:append-outer="resetTimer"
       ></v-text-field>
     </v-list-tile>
 
@@ -30,6 +30,7 @@
 </template>
 
 <script>
+import { EventBus } from "../utils/event-bus";
 import { mapState } from "vuex";
 
 export default {
@@ -41,6 +42,10 @@ export default {
   },
 
   methods: {
+    resetTimer() {
+      EventBus.$emit('reset-timer');
+    },
+    
     updateCycleTime(value) {
       this.$store.commit("updateCycleTime", value);
     },
