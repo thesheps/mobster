@@ -100,7 +100,7 @@ export default {
     let self = this;
     EventBus.$on('reset-timer', () => {
       self.resetTimer();
-    );
+    });
     
     window.addEventListener("resize", this.handleResize);
     this.handleResize();
